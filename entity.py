@@ -113,3 +113,58 @@ class Boss(Entity):
         print(f"{self.name} vient de s'équiper d'une protection pendant 3 tours !")
         # Come back to the fight
         return self.defense
+
+@dataclass
+class Player(Entity):
+    
+    def __post_init__(self):
+        self.potion = 3
+        self.defense = 0
+        self.score = 0
+        
+    def attack(self,monster):
+         """This function takes away health points from life's ennemy when the player attacks."""
+         if monster.hp <= self.attack:
+        
+            monster.death()
+            print("Félicitation,Vous avez réussi à vaincre l'ennemi!")
+            # Retour sur combat 
+            return 0
+         else:
+            print(f'Il reste {monster.hp - self.attack} PV à l\'ennemi')
+            # Retour sur combat
+            return monster.hp - self.attack
+    
+    def death(self):
+        playing = False
+        print(f"Vous êtes mort ! Votre score est de {self.score}")
+        return playing, self.score
+    
+    def defense_player(self):
+        """This function give a shield to the player during 3 turns."""
+        if self.defense !=0 :
+            print("Tu as déjà un bouclier !")
+        else:
+            self.defense = 3
+            print("Te voilà équipé d'un bouclier pendant 3 tours !")
+        # Retour sur combat
+        return self.defense
+        
+        
+        
+    def drink_potion(self):
+        """This function gives back 20 HP to the player in battle."""
+        if self.hp < self.hp_max -20:
+            self.hp += 20
+        else:
+            self.hp = self.hp_max
+        self.potion -= 1
+        print(f'-------Vous avez maintenant {self.potion} potions et {self.hp}PV')
+        # Retour sur combat
+        return self.hp, self.potion
+               
+        
+    def quit(self):
+        playing = False
+        print(f"Vous quiez le geux! Votre score est de {self.score}")
+        return playing
