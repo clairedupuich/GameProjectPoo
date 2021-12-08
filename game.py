@@ -22,6 +22,7 @@ class Game:
 
     def run(self):
         while self.running:
+            print("Votre bravoure vous honore ! Et ce sacrifice quasi certain restera à jamais dans les livres d'histoire ...")
             pass
 
         
