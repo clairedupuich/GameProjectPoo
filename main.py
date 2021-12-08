@@ -1,2 +1,3 @@
 from game import Game
-import random
+
+game = Game()

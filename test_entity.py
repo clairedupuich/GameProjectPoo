@@ -16,7 +16,7 @@ class TestMonster:
         assert monster_test.name == "Gobelin"
         assert monster_test.hp == 20
         assert monster_test.hp_max == 20
-        assert monster_test.attack == 5
+        assert monster_test.strength == 5
 
     def test_level(self,monster_test):
         assert monster_test.level(3,0.2) == (15, 15, 6, 30)
@@ -33,7 +33,7 @@ class TestBoss :
         assert boss_test.name == "Dracula"
         assert boss_test.hp == 35
         assert boss_test.hp_max == 35
-        assert boss_test.attack == 10
+        assert boss_test.strength == 10
 
     def test_level(self,boss_test):
         assert boss_test.level(5,0.3) == (27, 27, 11, 54)
@@ -45,7 +45,7 @@ class TestBoss :
     #     boss_test.death()
     #     assert boss_test.name == None
 
-    def test_defense(self,boss_test):
+    def test_defend(self,boss_test):
         assert boss_test.defense() == 3
 
 @pytest.fixture
@@ -62,7 +62,7 @@ def player_test_defense():
 
 class Test_Player:
     def test_init(self, player_test):
-        assert player_test.attack == 4
+        assert player_test.strength == 4
         assert player_test.name == "claire"
         
     #def test_attack(self,player_test,6):
@@ -70,9 +70,9 @@ class Test_Player:
     
     
     
-    def test_defense_player(self,player_test,player_test_defense):
-        assert player_test.defense_player() == 3
-        assert player_test_defense.defense_player() == 2
+    def test_defend(self,player_test,player_test_defense):
+        assert player_test.defend() == 3
+        assert player_test_defense.defend() == 2
         
     def test_death(self,player_test):
         assert player_test.death() == (False, 0)
