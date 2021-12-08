@@ -113,13 +113,3 @@ class Boss(Entity):
         print(f"{self.name} vient de s'équiper d'une protection pendant 3 tours !")
         # Come back to the fight
         return self.defense
-
-gobelin = Monster("Gobelin",20,20,5)
-gobelin.summon(3,0.2)
-print(gobelin.droprate)
-print(gobelin.points)
-
-dracula = Boss("Dracula",35,35,10)
-dracula.summon(5,0.3)
-print(dracula.points)
-print(dracula.droprate)
