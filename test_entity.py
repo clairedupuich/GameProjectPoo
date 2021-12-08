@@ -1,7 +1,7 @@
 import pytest
 import os
 
-from entity import Entity,Monster,Boss
+from entity import Entity,Monster,Boss,Player
 
 @pytest.fixture
 def monster_test():
@@ -47,3 +47,40 @@ class TestBoss :
 
     def test_defense(self,boss_test):
         assert boss_test.defense() == 3
+
+@pytest.fixture
+def player_test():
+    return Player("claire",50,50,4)
+@pytest.fixture
+def player_test_defense():
+    player_test_defense = Player("claire",50,50,4)
+    player_test_defense.defense = 2
+    return player_test_defense
+# @pytest.fixture
+# def monster_test():
+#     return Player()
+
+class Test_Player:
+    def test_init(self, player_test):
+        assert player_test.attack == 4
+        assert player_test.name == "claire"
+        
+    #def test_attack(self,player_test,6):
+    
+    
+    
+    
+    def test_defense_player(self,player_test,player_test_defense):
+        assert player_test.defense_player() == 3
+        assert player_test_defense.defense_player() == 2
+        
+    def test_death(self,player_test):
+        assert player_test.death() == (False, 0)
+        
+    def test_drink_potion(self,player_test):
+        assert player_test.drink_potion() == (50, 2) # 返回多个值时 需要括号
+        player_test.hp = 10
+        assert player_test.drink_potion() == (30, 1)
+     
+    def test_quit(self,player_test):
+        assert player_test.quit() == False  
