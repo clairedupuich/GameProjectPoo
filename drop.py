@@ -1,2 +1,28 @@
+from random import randint
+from dataclasses import dataclass
+
+@dataclass
 class Drop:
-    pass
+
+    inventory : dict
+    attack : int
+    potion : int
+
+    def __post_init__(self):
+        self.drop_items()
+
+    def drop_items(self):
+        dict = {"EXCALIBUR" : 50, "une hâche": 20, "une épee": 15, "une dague": 8, "un cure-dent": 2}
+        chance = randint(0, 100)
+        values = list(self.inventory.values())
+        keys = list(self.inventory.keys())
+        for i in range (len(self.inventory.keys())-1, -1, -1):
+            if chance < values[i]:
+                if keys[i] == "Potion":
+                    self.potion += 1
+                    print(f'Vous avez obtenu une potion. {self.potion=}')
+                else:
+                    self.attack = 5 + dict[keys[i]]
+                print(f'Vous avez obtenu {keys[i]} et votre attaque passe à {self.attack}')
+                break
+        return self.attack, self.potion
