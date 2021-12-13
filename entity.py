@@ -60,7 +60,7 @@ class Monster(Entity):
         """"This function will delete the last summoned monster and run the drop() method"""
         print(f"Félicitations ! Vous avez réussi à vaincre {self.name}!")
         if self.droprate >= randint(0,100):
-            item = {"Dague" : 20, "Potion": 50, "Cure-dent": 30 } 
+            item = {"une dague" : 20, "Potion": 50, "un cure-dent": 30 } 
             dropped = Drop(item, player.strength, player.potion)
             player.strength, player.potion = dropped.drop_items()
         score += self.points
@@ -72,6 +72,7 @@ class Boss(Entity):
     droprate : ClassVar[float]
     weak_attack : ClassVar[float]
     defense : ClassVar[int] = 0
+    countdown : ClassVar[int] = 0
 
     def level(self,floor,difficulty):
         """ This function give the force and the health points of the boss, using the floor's level and the difficulty's level."""
@@ -87,24 +88,33 @@ class Boss(Entity):
 
     def attack(self,player):
         """This function takes away health points from life's player when the Boss attacks him."""
-        if player.defense != 0 :
-            self.weak_attack = round(self.strength / 1.5)
-            player.defense -= 1
-            player.hp -= self.weak_attack
-            print(f"Vous avez subi {self.weak_attack} points de dégâts de la part du {self.name}")
+        if self.countdown < 2 : 
+            if player.defense != 0 :
+                self.weak_attack = round(self.strength / 1.5)
+                player.defense -= 1
+                player.hp -= self.weak_attack
+                print(f"Vous avez subi {self.weak_attack} points de dégâts de la part du {self.name}")
 
-        else:    
-            player.hp -= self.strength
-            print(f"Vous avez subi {self.strength} points de dégâts de la part du {self.name}")
-            print(f'Il vous reste {player.hp} points de vie.')
-            # Come back to the fight
+            else:    
+                player.hp -= self.strength
+                print(f"Vous avez subi {self.strength} points de dégâts de la part du {self.name}")
+                print(f'Il vous reste {player.hp} points de vie.')
+                # Come back to the fight
+            self.countdown += 1
+            self.defense -= 1
+
+        else:
+            self.defense = self.defend()
+            self.countdown = 0
+
         return player.hp
 
     def death(self, player, score):
         """"This function will delete the last summoned monster and run the drop() method"""
         print(f"Félicitations ! Vous avez réussi à vaincre {self.name}!")
         if self.droprate >= randint(0,100):
-            item = {"Excalibur" : 1, "Hâche": 49, "Epee": 30, "Potion": 20 } 
+            print("L'ennemi a laissé tomber quelque chose")
+            item = {"Excalibur" : 1, "une hâche": 49, "une épee": 30, "Potion": 20 } 
             dropped = Drop(item, player.strength, player.potion)
             player.strength, player.potion = dropped.drop_items()
         score += self.points
@@ -130,7 +140,7 @@ class Player(Entity):
             print(f"Votre score est de {score}")
             monster.hp = 0
         else:
-            if monster.defense == 0:
+            if monster.defense <= 0:
                 monster.hp -= self.strength
             else:
                 monster.hp -= round(self.strength/1.5)

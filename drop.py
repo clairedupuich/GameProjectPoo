@@ -12,7 +12,7 @@ class Drop:
         self.drop_items()
 
     def drop_items(self):
-        dict = {"EXCALIBUR" : 50, "Hâche": 20, "Epee": 15, "Dague": 8, "Cure-dent": 2}
+        dict = {"EXCALIBUR" : 50, "une hâche": 20, "une épee": 15, "une dague": 8, "un cure-dent": 2}
         chance = randint(0, 100)
         values = list(self.inventory.values())
         keys = list(self.inventory.keys())
@@ -20,7 +20,9 @@ class Drop:
             if chance < values[i]:
                 if keys[i] == "Potion":
                     self.potion += 1
+                    print(f'Vous avez obtenu une potion. {self.potion=}')
                 else:
-                    self.attack += dict[keys[i]]
+                    self.attack = 5 + dict[keys[i]]
+                print(f'Vous avez obtenu {keys[i]} et votre attaque passe à {self.attack}')
                 break
         return self.attack, self.potion
