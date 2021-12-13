@@ -34,7 +34,10 @@ class Game:
             choice = self.choice(player)
             if not choice:
                 break
-    
+        if self.score != 0:
+            with open("Scores.txt", 'a') as scores:
+                scores.write(f'{player.name} =====> score = {self.score} | floor = {self.floor}\n')
+                
     def choice(self, player):
         print(f"Vous arrivez à l'étage {self.floor} et votre score est de {self.score}")
         path = ""
@@ -55,8 +58,7 @@ class Game:
                 self.summon_monster(difficulty, player)
                 path = ""
             elif path.lower() == "d":
-                self.running = False
-                return False
+                self.quit()
             else:
                 print("Toi pas comprendre ?")
             if player.hp <= 0:
@@ -95,4 +97,8 @@ class Game:
             del monster
             self.floor += 1
             print(f"Vous passez à l'étage {self.floor}")
+            
+    def quit(self):
+        self.running = False
+        print(f"Vous quittez le donjon! Votre score est de {self.score}")
             

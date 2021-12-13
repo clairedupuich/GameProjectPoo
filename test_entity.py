@@ -19,13 +19,16 @@ class TestMonster:
         assert monster_test.strength == 5
 
     def test_level(self,monster_test):
-        assert monster_test.level(3,0.2) == (15, 15, 6, 30)
+        assert monster_test.level(3,0.2) == (15, 15, 8, 30)
 
-    # def test_attack(self,monster_test):
-    #     assert monster_test.attack() ==
+    def test_attack(self,monster_test, player_test):
+        assert monster_test.attack(player_test) == 45
+        player_test.defense = 3
+        assert monster_test.attack(player_test) == 42
 
-    # def test_death(self,monster_test):
-    #     assert monster_test.death() == 0
+    def test_death(self,monster_test, player_test):
+        monster_test.level(3, 0.2)
+        assert monster_test.death(player_test, 10) == 25
 
 
 class TestBoss :
@@ -36,17 +39,19 @@ class TestBoss :
         assert boss_test.strength == 10
 
     def test_level(self,boss_test):
-        assert boss_test.level(5,0.3) == (27, 27, 11, 54)
+        assert boss_test.level(5,0.3) == (27, 27, 18, 63)
 
-    # def test_attack(self,boss_test):
-    #     boss_test.attack()
+    def test_attack(self,boss_test, player_test):
+        assert boss_test.attack(player_test) == 40
+        player_test.defense = 2
+        assert boss_test.attack(player_test) == 33
 
-    # def test_death(self,boss_test):
-    #     boss_test.death()
-    #     assert boss_test.name == None
+    def test_death(self,boss_test, player_test):
+        boss_test.level(5, 0.3)
+        assert boss_test.death(player_test, 50) == 77
 
     def test_defend(self,boss_test):
-        assert boss_test.defense() == 3
+        assert boss_test.defend() == 3
 
 @pytest.fixture
 def player_test():
@@ -56,16 +61,20 @@ def player_test_defense():
     player_test_defense = Player("claire",50,50,4)
     player_test_defense.defense = 2
     return player_test_defense
-# @pytest.fixture
-# def monster_test():
-#     return Player()
 
 class Test_Player:
     def test_init(self, player_test):
         assert player_test.strength == 4
         assert player_test.name == "claire"
         
-    #def test_attack(self,player_test,6):
+    def test_attack(self,player_test, monster_test,boss_test):
+        assert player_test.attack(monster_test, 20) == (20, 16)
+        monster_test.level(3, 0.2)
+        monster_test.hp = 2
+        assert player_test.attack(monster_test, 20) == (35, 0)
+        assert player_test.attack(boss_test, 20) == (20, 31)
+        boss_test.defense = 1
+        assert player_test.attack(boss_test, 20) == (20, 28)
     
     
     
@@ -75,12 +84,10 @@ class Test_Player:
         assert player_test_defense.defend() == 2
         
     def test_death(self,player_test):
-        assert player_test.death() == (False, 0)
+        assert player_test.death() == False
         
     def test_drink_potion(self,player_test):
         assert player_test.drink_potion() == (50, 2) # 返回多个值时 需要括号
         player_test.hp = 10
         assert player_test.drink_potion() == (30, 1)
      
-    def test_quit(self,player_test):
-        assert player_test.quit() == False  

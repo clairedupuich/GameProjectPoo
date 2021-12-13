@@ -26,6 +26,7 @@ class Monster(Entity):
     points : ClassVar[int]
     droprate : ClassVar[float]
     weak_attack : ClassVar[float]
+    defense : int = 0
 
     def level(self,floor,difficulty):
         """ This function give the force and the health points of the monster, using the floor's level and the difficulty's level."""
@@ -70,7 +71,7 @@ class Boss(Entity):
     points : ClassVar[int]
     droprate : ClassVar[float]
     weak_attack : ClassVar[float]
-    defense : ClassVar[int]
+    defense : ClassVar[int] = 0
 
     def level(self,floor,difficulty):
         """ This function give the force and the health points of the boss, using the floor's level and the difficulty's level."""
@@ -128,10 +129,15 @@ class Player(Entity):
         if monster.hp <= self.strength:
             score = monster.death(self, score)
             print(f"Votre score est de {score}")
+            monster.hp = 0
         else:
-            print(f'Il reste {monster.hp - self.strength} PV à l\'ennemi')
+            if monster.defense == 0:
+                monster.hp -= self.strength
+            else:
+                monster.hp -= round(self.strength/1.5)
+            print(f'Il reste {monster.hp} PV à l\'ennemi')
             # Retour sur combat
-        return score, monster.hp - self.strength
+        return score, monster.hp
     
     def death(self):
         return False
@@ -159,8 +165,3 @@ class Player(Entity):
         # Retour sur combat
         return self.hp, self.potion
                
-        
-    def quit(self):
-        playing = False
-        print(f"Vous quiez le geux! Votre score est de {self.score}")
-        return playing
