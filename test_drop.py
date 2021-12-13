@@ -13,7 +13,7 @@ def test_drop2():
 
 class TestDrop:
     def test_initialisation(self, test_drop, test_drop2):
-        assert test_drop.attack == 20
+        assert test_drop.attack == 5
         assert test_drop.potion == 3
         assert test_drop.inventory == {"une hâche" : 80, "une épee": 20}
-        assert test_drop2.potion == 4
+        assert test_drop2.potion == 3
