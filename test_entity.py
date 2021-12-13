@@ -1,7 +1,6 @@
 import pytest
-import os
 
-from entity import Entity,Monster,Boss,Player
+from entity import Monster,Boss,Player
 
 @pytest.fixture
 def monster_test():
