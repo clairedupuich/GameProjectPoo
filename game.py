@@ -26,7 +26,7 @@ class Game:
     def run(self):
         print("Votre bravoure vous honore ! Et ce sacrifice quasi certain restera à jamais dans les livres d'histoire ...")
         name = input("Mais au fait, quel(le) est ton nom jeune aventurier(ère) ?")
-        player = Player(name, 50, 50, 5)
+        player = Player(name, 50, 50, 50)
         print("{} dis-tu... Ca reviendra certainement un jour à la mode.".format(player.name))
         print("Trêve de bavardages ! Il est temps pour toi de te confronter au plus grand défi de ta vie...")
         print("--- ENTREE DU DONJON ---")

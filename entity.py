@@ -60,6 +60,7 @@ class Monster(Entity):
         """"This function will delete the last summoned monster and run the drop() method"""
         print(f"Félicitations ! Vous avez réussi à vaincre {self.name}!")
         if self.droprate >= randint(0,100):
+            print("L'ennemi a laissé tomber quelque chose")
             item = {"une dague" : 20, "Potion": 50, "un cure-dent": 30 } 
             dropped = Drop(item, player.strength, player.potion)
             player.strength, player.potion = dropped.drop_items()

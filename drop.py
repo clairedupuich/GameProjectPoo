@@ -8,9 +8,6 @@ class Drop:
     attack : int
     potion : int
 
-    def __post_init__(self):
-        self.drop_items()
-
     def drop_items(self):
         dict = {"EXCALIBUR" : 50, "une hâche": 20, "une épee": 15, "une dague": 8, "un cure-dent": 2}
         chance = randint(0, 100)
@@ -22,7 +19,10 @@ class Drop:
                     self.potion += 1
                     print(f'Vous avez obtenu une potion. {self.potion=}')
                 else:
-                    self.attack = 5 + dict[keys[i]]
-                print(f'Vous avez obtenu {keys[i]} et votre attaque passe à {self.attack}')
+                    if self.attack < 5 + dict[keys[i]]:
+                        self.attack = 5 + dict[keys[i]]
+                        print(f'Vous avez obtenu {keys[i]} et votre attaque passe à {self.attack}')
+                    else:
+                        print('Vous obtenez {keys[i]} mais vous possédez déjà un meilleur équipement')
                 break
         return self.attack, self.potion
