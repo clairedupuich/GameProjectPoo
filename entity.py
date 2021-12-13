@@ -120,9 +120,8 @@ class Boss(Entity):
 @dataclass
 class Player(Entity):
     
-    def __post_init__(self):
-        self.potion = 3
-        self.defense = 0
+    potion : ClassVar[int] = 3
+    defense : ClassVar[int] = 0
         
     def attack(self,monster,score):
         """This function takes away health points from life's ennemy when the player attacks."""
