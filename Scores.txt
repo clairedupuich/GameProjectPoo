@@ -5,3 +5,5 @@ Rudy =====> score = 26 | floor = 3
 Rudy =====> score = 26 | floor = 3
 Rudy =====> score = 13 | floor = 2
 Rudy =====> score = 25 | floor = 3
+Rudy =====> score = 26 | floor = 3
+Rudy =====> score = 26 | floor = 3

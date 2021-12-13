@@ -9,7 +9,6 @@
 
 # Améliorations
 
-* Amélioration graphique
 * Création de différentes classes de personnages (Magicien, Paladin, Guerrier)
 * Gestion de Magic Points (MP)
 * Ajout d'un système de pièces d'or + boutique
@@ -20,3 +19,5 @@
 * Sauvegarde
 
 # Améliorations réalisées
+
+* Amélioration graphique

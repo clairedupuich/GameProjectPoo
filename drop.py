@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class Drop:
 
     inventory : dict
+    strength : int
     attack : int
     potion : int
 
@@ -19,8 +20,8 @@ class Drop:
                     self.potion += 1
                     print(f'Vous avez obtenu une potion. {self.potion=}')
                 else:
-                    if self.attack < 5 + dict[keys[i]]:
-                        self.attack = 5 + dict[keys[i]]
+                    if self.attack < self.strength + dict[keys[i]]:
+                        self.attack = self.strength + dict[keys[i]]
                         print(f'Vous avez obtenu {keys[i]} et votre attaque passe à {self.attack}')
                     else:
                         print('Vous obtenez {keys[i]} mais vous possédez déjà un meilleur équipement')

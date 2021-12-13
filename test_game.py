@@ -2,7 +2,6 @@ from entity import Player,Boss,Monster
 from game import Game
 import pytest
 
-
 @pytest.fixture
 def monster_test():
     return Monster("Gobelin",20,20,5)

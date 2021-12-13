@@ -8,7 +8,6 @@ from termcolor import colored
 
 clear = lambda: os.system('cls')
 
-
 @dataclass
 class Entity(metaclass = ABCMeta):
     
@@ -28,23 +27,23 @@ class Entity(metaclass = ABCMeta):
 @dataclass
 class Monster(Entity):
 
-    points : ClassVar[int]
-    droprate : ClassVar[float]
+    points : ClassVar[int] = 10
+    droprate : ClassVar[float] = 10
+    exp_points : ClassVar[int] = 10
     weak_attack : ClassVar[float]
     defense : int = 0
 
     def level(self,floor,difficulty):
         """ This function give the force and the health points of the monster, using the floor's level and the difficulty's level."""
-        droprate_base = 10
-        points_base = 10
 
-        self.droprate = droprate_base * (((floor/10)+difficulty)+1)
+        self.droprate *= (((floor/10)+difficulty)+1)
         self.strength = round(self.strength * (((floor/10)+difficulty)+1))
         self.hp = round(self.hp * (((floor/10)+difficulty)+1))
-        self.points = round(points_base * (((floor/10)+difficulty)+1))
+        self.hp_max = round(self.hp * (((floor/10)+difficulty)+1))
+        self.points = round(self.points * (((floor/10)+difficulty)+1))
+        self.exp_points += floor * 5
         print(colored(f"           {self.name}","green"), f"s'approche de vous ! Il posséde {self.hp} points de vie et une force de {self.strength}.")
-
-        return self.points, self.droprate, self.strength, self.hp
+        return self.points, self.droprate, self.strength, self.hp, self.exp_points
 
     def attack(self,player):
         """This function takes away health points from life's player when an ennemy attacks him."""
@@ -68,31 +67,33 @@ class Monster(Entity):
         if self.droprate >= randint(0,100):
             print("L'ennemi a laissé tomber quelque chose")
             item = {"une dague" : 20, "Potion": 50, "un cure-dent": 30 } 
-            dropped = Drop(item, player.strength, player.potion)
-            player.strength, player.potion = dropped.drop_items()
+            dropped = Drop(item,player.strength, player.power, player.potion)
+            player.power, player.potion = dropped.drop_items()
         score += self.points
+        player.experience += self.exp_points
         clear()
         return score
 
 class Boss(Entity):
 
-    points : ClassVar[int]
-    droprate : ClassVar[float]
+    points : ClassVar[int] = 15
+    droprate : ClassVar[float] = 15
     weak_attack : ClassVar[float]
     defense : ClassVar[int] = 0
     countdown : ClassVar[int] = 0
+    exp_points : ClassVar[int] = 100
 
     def level(self,floor,difficulty):
         """ This function give the force and the health points of the boss, using the floor's level and the difficulty's level."""
-        droprate_base = 15
-        points_base = 15
 
-        self.droprate = droprate_base * (((floor/10)+difficulty)+1)
+        self.droprate *= (((floor/10)+difficulty)+1)
         self.strength = round(self.strength * (((floor/10)+difficulty)+1))
         self.hp = round(self.hp * (((floor/10)+difficulty)+1))
-        self.points = round(points_base * (((floor/10)+difficulty)+1))
+        self.hp_max = round(self.hp * (((floor/10)+difficulty)+1))
+        self.points = round(self.points * (((floor/10)+difficulty)+1))
+        self.exp_points *= floor/5
         print(f"            {self.name} vient d'apparaître ! Un boss avec {self.hp} points de vie et avec une force de {self.strength}.")
-        return self.points, self.droprate, self.strength, self.hp
+        return self.points, self.droprate, self.strength, self.hp, self.exp_points
 
     def attack(self,player):
         """This function takes away health points from life's player when the Boss attacks him."""
@@ -124,9 +125,10 @@ class Boss(Entity):
         if self.droprate >= randint(0,100):
             print("L'ennemi a laissé tomber quelque chose")
             item = {"Excalibur" : 1, "une hâche": 49, "une épee": 30, "Potion": 20 } 
-            dropped = Drop(item, player.strength, player.potion)
-            player.strength, player.potion = dropped.drop_items()
+            dropped = Drop(item, player.strength, player.power, player.potion)
+            player.power, player.potion = dropped.drop_items()
         score += self.points
+        player.experience += self.exp_points
         clear()
         return score
     
@@ -142,22 +144,37 @@ class Player(Entity):
     
     potion : ClassVar[int] = 3
     defense : ClassVar[int] = 0
+    power : ClassVar[int] = 5
+    experience : ClassVar[int] = 0
+    exp_dict : ClassVar[dict] = {1: 30, 2: 120, 3: 250, 4: 420, 5: 620, 6: 870, 7: 1160, 8: 1490, 9: 1860, 10: 2270}
+    level : ClassVar[int] = 1
+    gold : ClassVar[int] = 0
         
     def attack(self,monster,score):
         """This function takes away health points from life's ennemy when the player attacks."""
-        if monster.hp <= self.strength:
+        if monster.hp <= self.power:
             score = monster.death(self, score)
             monster.hp = 0
         else:
             if monster.defense <= 0:
-                monster.hp -= self.strength
+                monster.hp -= self.power
             else:
-                monster.hp -= round(self.strength/1.5)
+                monster.hp -= round(self.power/1.5)
             clear()
-            print("L'ennemi a subi",colored(f"-{self.strength}", "blue")," points de dégats")
+            print("L'ennemi a subi",colored(f"-{self.power}", "blue")," points de dégats")
             # Retour sur combat
         return score, monster.hp
-    
+
+    def level_up(self):
+        self.experience -= self.exp_dict[self.level]
+        self.level += 1
+        self.strength += 2
+        self.power += 2
+        self.hp_max += 10
+        self.hp += 10
+        print(f"Votre personnage est passé niveau {self.level}")
+        print(f"Attack +2 => {self.strength} | HP +10 => {self.hp}/{self.hp_max}")
+
     def death(self):
         return False
     

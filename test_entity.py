@@ -18,7 +18,7 @@ class TestMonster:
         assert monster_test.strength == 5
 
     def test_level(self,monster_test):
-        assert monster_test.level(3,0.2) == (15, 15, 8, 30)
+        assert monster_test.level(3,0.2) == (15, 15, 8, 30, 25)
 
     def test_attack(self,monster_test, player_test):
         assert monster_test.attack(player_test) == 45
@@ -38,7 +38,7 @@ class TestBoss :
         assert boss_test.strength == 10
 
     def test_level(self,boss_test):
-        assert boss_test.level(5,0.3) == (27, 27, 18, 63)
+        assert boss_test.level(5,0.3) == (27, 27, 18, 63, 100)
 
     def test_attack(self,boss_test, player_test):
         assert boss_test.attack(player_test) == 40

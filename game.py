@@ -115,6 +115,8 @@ class Game:
         if player.hp <= 0 :
             self.running = player.death()
         else:
+            if player.experience > player.exp_dict[player.level]:
+                player.level_up()
             del monster
             self.floor += 1
             print(f"Votre score est de ",colored(f"{self.score}","red")," et vous passez à l'étage ",colored(f"{self.floor}","red"))
