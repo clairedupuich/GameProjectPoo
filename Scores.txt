@@ -1,2 +1,8 @@
-Rudy =====> score = 218 | floor = 12
-Charly =====> score = 291 | floor = 15
+Machin =====> score = 11 | floor = 2
+Machin =====> score = 11 | floor = 2
+Machin =====> score = 11 | floor = 2
+Bidule =====> score = 11 | floor = 2
+Machin =====> score = 11 | floor = 2
+Machin =====> score = 11 | floor = 2
+Machin =====> score = 11 | floor = 2
+Truc =====> score = 23 | floor = 3
