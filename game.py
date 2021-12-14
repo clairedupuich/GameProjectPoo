@@ -49,31 +49,28 @@ class Game:
                 
     def choice(self, player):
         """Choice of a path giving a certain difficulty used for the spawn of the monster"""
-        print(f"                           Vous arrivez à l'étage {self.floor} et votre score est de {self.score}\n")
+        print("                           Vous arrivez à l'étage",colored(f"{self.floor}","red"),"et votre score est de",colored(f"{self.score}","red"),"\n")
         time.sleep(1)
         path = ""
-        print("3 chemins s'offrent à vous, choisissez l'un d'entre eux ou abandonner lâchement.")
+        print("3 chemins s'offrent à vous, choisissez l'un d'entre eux ou abandonner lâchement.\n")
         while path not in ["a", "b", "c", "d"]:
-            print("a: route facile | b: route normale | c: route difficile | d: abandonner lâchement")
+            print("a: route facile | b: route normale | c: route difficile | d: abandonner lâchement\n")
             path = input("Quel chemin choisissez vous entre a | b | c | d ?      ")
             time.sleep(1)
             if path.lower() == "a":
                 clear()
                 difficulty = 0
                 self.summon_monster(difficulty, player)
-                path = ""
 
             elif path.lower() == "b":
                 clear()
                 difficulty = 0.1
                 self.summon_monster(difficulty, player)
-                path = ""
 
             elif path.lower() == "c":
                 clear()
                 difficulty = 0.2
                 self.summon_monster(difficulty, player)
-                path = ""
 
             elif path.lower() == "d":
                 self.quit()
@@ -123,10 +120,9 @@ class Game:
                 player.level_up()
             del monster
             self.floor += 1
-            print("Vous passez à l'étage ",colored(f"{self.floor}","red")," avec un score de ",colored(f"{self.score}", "red"))
             
     def quit(self):
         """Allow to quit the game and save the progression"""
         self.running = False
-        print(f"Vous quittez le donjon! Votre score est de {self.score} et votre étage de {self.floor}")
+        print(f"Vous quittez le donjon comme un lâche! Votre score est de {self.score} et votre étage de {self.floor}")
             

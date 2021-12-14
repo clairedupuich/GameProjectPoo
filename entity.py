@@ -32,6 +32,7 @@ class Monster(Entity):
     exp_points : ClassVar[int] = 10
     weak_attack : ClassVar[float]
     defense : int = 0
+    gold : ClassVar[int] = 10
 
     def level(self,floor,difficulty):
         """ This function give the force and the health points of the monster, using the floor's level and the difficulty's level."""
@@ -40,6 +41,7 @@ class Monster(Entity):
         self.strength = round(self.strength * (((floor/10)+difficulty)+1))
         self.hp = round(self.hp * (((floor/10)+difficulty)+1))
         self.hp_max = self.hp
+        self.gold = round(self.gold * ((floor/10)+difficulty))
         self.points = round(self.points * (((floor/10)+difficulty)+1))
         self.exp_points += floor * 5
         print(colored(f"           {self.name}","green"), f"s'approche de vous ! Il posséde {self.hp} points de vie et une force de {self.strength}.")
@@ -71,6 +73,7 @@ class Monster(Entity):
             player.power, player.potion = dropped.drop_items()
         score += self.points
         player.experience += self.exp_points
+        player.gold += self.gold
         clear()
         return score
 
@@ -82,6 +85,7 @@ class Boss(Entity):
     defense : ClassVar[int] = 0
     countdown : ClassVar[int] = 0
     exp_points : ClassVar[int] = 100
+    gold : ClassVar[int] = 100
 
     def level(self,floor,difficulty):
         """ This function give the force and the health points of the boss, using the floor's level and the difficulty's level."""
@@ -92,6 +96,7 @@ class Boss(Entity):
         self.hp_max = self.hp
         self.points = round(self.points * (((floor/10)+difficulty)+1))
         self.exp_points *= floor/5
+        self.gold = round(self.gold * ((floor/10)+difficulty))
         print(f"            {self.name} vient d'apparaître ! Un boss avec {self.hp} points de vie et avec une force de {self.strength}.")
         return self.points, self.droprate, self.strength, self.hp, self.exp_points
 
@@ -129,6 +134,7 @@ class Boss(Entity):
             player.power, player.potion = dropped.drop_items()
         score += self.points
         player.experience += self.exp_points
+        player.gold += self.gold
         clear()
         return score
     

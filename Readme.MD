@@ -1,4 +1,4 @@
-# Fonctionnalités présentes
+# Fonctionnalités de Base du jeu
 
 * Un joueur avec des attributs et un inventaire
 * Un système de combat et de gestion de points de vie
@@ -11,7 +11,7 @@
 
 * Création de différentes classes de personnages (Magicien, Paladin, Guerrier)
 * Gestion de Magic Points (MP)
-* Ajout d'un système de pièces d'or + boutique
+* boutique
 * D'autres potions
 * Ajouter du Lore (histoire)
 * Sauvegarde
@@ -21,3 +21,4 @@
 * Amélioration graphique
 * Level up (gain de points d'expérience)
 * Son
+* Ajout d'un système de pièces d'or 
