@@ -4,7 +4,7 @@ from termcolor import colored
 import time
 import os
 
-clear = lambda: os.system('cls')
+clear = lambda: os.system('cls') # clear the console
 
 class Game:
     def __init__(self):
@@ -14,6 +14,7 @@ class Game:
         self.introducing()
 
     def introducing(self):
+        """Description of the game and beginning"""
         print(colored('Bienvenue sur le jeu :', 'white'),colored( 'Simplon Escape !', 'red'))
         print("Le but du jeu est de sauver la princesse" ,colored("Claire","red"), "emprisonnée en haut du donjon Simplon.co. \nVous êtes le Héros de cette quête et partez à la rescousse de la princesse. \nVous aurez à affronter de nombreux ennemis au cours de votre ascension dans le donjon.")
         defi = input("----------------------------------------------------------------\nEtes-vous prêt(e) à relever ce défi ? (Y/N) ")
@@ -28,6 +29,7 @@ class Game:
                 defi = input("Toi pas comprendre ? Y or N ?    ")
 
     def run(self):
+        """Start the game and create an instance of player"""
         clear()
         print("Votre bravoure vous honore ! Et ce sacrifice quasi certain restera à jamais dans les livres d'histoire ...")
         name = input("Mais au fait, quel(le) est ton nom jeune aventurier(ère) ?    ")
@@ -48,6 +50,7 @@ class Game:
                 scores.write(f'{player.name} =====> score = {self.score} | floor = {self.floor}\n')
                 
     def choice(self, player):
+        """Choice of a path giving a certain difficulty used for the spawn of the monster"""
         print(f"                           Vous arrivez à l'étage {self.floor} et votre score est de {self.score}\n")
         time.sleep(1)
         path = ""
@@ -82,6 +85,7 @@ class Game:
                 break
 
     def summon_monster(self, difficulty, player):
+        """Generates a monster or a boss depending of the floor"""
         if self.floor % 5 == 0:
             list_boss_name = ["Dracula", "Frankenstein", "BigTroll", "Lucifer"]
             boss_name = list_boss_name[randint(0,len(list_boss_name)-1)]
@@ -94,6 +98,7 @@ class Game:
         self.fight(player, monster)
 
     def fight(self, player, monster):
+        """Manages the fight between the player and a monster"""
         while player.hp > 0 and monster.hp > 0:
             choice = input("1: Attaque | 2: Défendre | 3: Potion\n")
             if choice == "1":
@@ -122,6 +127,7 @@ class Game:
             print(f"Votre score est de ",colored(f"{self.score}","red")," et vous passez à l'étage ",colored(f"{self.floor}","red"))
             
     def quit(self):
+        """Allow to quit the game and save the progression"""
         self.running = False
         print(f"Vous quittez le donjon! Votre score est de {self.score} et votre étage de {self.floor}")
             

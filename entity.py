@@ -6,7 +6,7 @@ from drop import Drop
 import time, os
 from termcolor import colored
 
-clear = lambda: os.system('cls')
+clear = lambda: os.system('cls') # clear the console 
 
 @dataclass
 class Entity(metaclass = ABCMeta):
@@ -166,6 +166,7 @@ class Player(Entity):
         return score, monster.hp
 
     def level_up(self):
+        """This function boosts base stats of the player when the player reaches a certain exeperience"""
         self.experience -= self.exp_dict[self.level]
         self.level += 1
         self.strength += 2
@@ -176,6 +177,7 @@ class Player(Entity):
         print(f"Attack +2 => {self.strength} | HP +10 => {self.hp}/{self.hp_max}")
 
     def death(self):
+        """This function allow to finish the game when the player is dead"""
         return False
     
     def defend(self):

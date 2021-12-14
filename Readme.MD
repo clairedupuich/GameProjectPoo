@@ -13,11 +13,11 @@
 * Gestion de Magic Points (MP)
 * Ajout d'un système de pièces d'or + boutique
 * D'autres potions
-* Level up (gain de points d'expérience)
-* Son
 * Ajouter du Lore (histoire)
 * Sauvegarde
 
 # Améliorations réalisées
 
 * Amélioration graphique
+* Level up (gain de points d'expérience)
+* Son
