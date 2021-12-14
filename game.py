@@ -42,9 +42,7 @@ class Game:
         time.sleep(2)
         clear()
         while self.running:
-            choice = self.choice(player)
-            if not choice:
-                break
+            self.choice(player)
         if self.score != 0:
             with open("Scores.txt", 'a') as scores:
                 scores.write(f'{player.name} =====> score = {self.score} | floor = {self.floor}\n')
@@ -82,6 +80,7 @@ class Game:
             else:
                 print("Toi pas comprendre ?")
             if player.hp <= 0:
+                print(f"Vous êtes mort à l'étage {self.floor} avec un score de {self.score}")
                 break
 
     def summon_monster(self, difficulty, player):
@@ -124,7 +123,7 @@ class Game:
                 player.level_up()
             del monster
             self.floor += 1
-            print(f"Votre score est de ",colored(f"{self.score}","red")," et vous passez à l'étage ",colored(f"{self.floor}","red"))
+            print("Vous passez à l'étage ",colored(f"{self.floor}","red")," avec un score de ",colored(f"{self.score}", "red"))
             
     def quit(self):
         """Allow to quit the game and save the progression"""

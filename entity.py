@@ -39,7 +39,7 @@ class Monster(Entity):
         self.droprate *= (((floor/10)+difficulty)+1)
         self.strength = round(self.strength * (((floor/10)+difficulty)+1))
         self.hp = round(self.hp * (((floor/10)+difficulty)+1))
-        self.hp_max = round(self.hp * (((floor/10)+difficulty)+1))
+        self.hp_max = self.hp
         self.points = round(self.points * (((floor/10)+difficulty)+1))
         self.exp_points += floor * 5
         print(colored(f"           {self.name}","green"), f"s'approche de vous ! Il posséde {self.hp} points de vie et une force de {self.strength}.")
@@ -89,7 +89,7 @@ class Boss(Entity):
         self.droprate *= (((floor/10)+difficulty)+1)
         self.strength = round(self.strength * (((floor/10)+difficulty)+1))
         self.hp = round(self.hp * (((floor/10)+difficulty)+1))
-        self.hp_max = round(self.hp * (((floor/10)+difficulty)+1))
+        self.hp_max = self.hp
         self.points = round(self.points * (((floor/10)+difficulty)+1))
         self.exp_points *= floor/5
         print(f"            {self.name} vient d'apparaître ! Un boss avec {self.hp} points de vie et avec une force de {self.strength}.")
