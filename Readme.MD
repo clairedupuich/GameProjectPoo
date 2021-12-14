@@ -14,7 +14,6 @@
 * boutique
 * D'autres potions
 * Ajouter du Lore (histoire)
-* Sauvegarde
 
 # Améliorations réalisées
 
@@ -22,3 +21,4 @@
 * Level up (gain de points d'expérience)
 * Son
 * Ajout d'un système de pièces d'or 
+* Sauvegarde

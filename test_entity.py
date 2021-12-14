@@ -67,13 +67,13 @@ class Test_Player:
         assert player_test.name == "claire"
         
     def test_attack(self,player_test, monster_test,boss_test):
-        assert player_test.attack(monster_test, 20) == (20, 16)
+        assert player_test.attack(monster_test, 20) == (20, 15)
         monster_test.level(3, 0.2)
         monster_test.hp = 2
         assert player_test.attack(monster_test, 20) == (35, 0)
-        assert player_test.attack(boss_test, 20) == (20, 31)
+        assert player_test.attack(boss_test, 20) == (20, 30)
         boss_test.defense = 1
-        assert player_test.attack(boss_test, 20) == (20, 28)
+        assert player_test.attack(boss_test, 20) == (20, 27)
     
     
     
